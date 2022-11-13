@@ -23,7 +23,7 @@ import math
 from typing import TYPE_CHECKING, Dict, List, Optional, Type, Union
 
 from PyQt5.QtCore import QEventLoop, QSize, QThread, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QApplication, QDialog, QProgressDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QProgressDialog, QDialogButtonBox, QVBoxLayout, QLabel
 
 # import the main window object (mw) from aqt
 import aqt
@@ -102,6 +102,7 @@ class SimulatorDialog(QDialog):
                 if deck_name:
                     self.deckChooser.setDeckName(deck_name)
         self.dialog.simulateButton.clicked.connect(self.simulate)
+        self.dialog.combineSimulationsButton.clicked.connect(self.showCombineDialog)
         self.dialog.loadDeckConfigurationsButton.clicked.connect(
             self.loadDeckConfigurations
         )
@@ -164,6 +165,10 @@ class SimulatorDialog(QDialog):
     def showSupportDialog(self):
         supportDialog = SupportDialog(parent=self)
         supportDialog.exec_()
+
+    def showCombineDialog(self):
+        combineDialog = CombineDialog(self)
+        combineDialog.exec_()
 
     def _onClose(self):
         saveGeom(self, "simulatorDialog")
@@ -755,3 +760,21 @@ class SupportDialog(QDialog):
 
     def onGlutanimate(self):
         openLink(self._glutanimate_link)
+
+class CombineDialog(QDialog):
+    def __init__(self, parent):
+        QDialog.__init__(self, parent)
+
+        self.setWindowTitle("Combine simulations")
+
+        self.buttonBox = QDialogButtonBox(QDialogButtonBox.Yes | QDialogButtonBox.Cancel)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(QLabel("Select simulations to combine:"))
+        self.layout.addWidget(self.buttonBox)
+        self.setLayout(self.layout)
+
+    def close(self):
+        self.reject()

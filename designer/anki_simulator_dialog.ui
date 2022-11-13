@@ -781,6 +781,19 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="combineSimulationsButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Combine simulations</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -846,6 +859,7 @@
   <tabstop>simulationTitleTextfield</tabstop>
   <tabstop>daysToSimulateSpinbox</tabstop>
   <tabstop>simulateButton</tabstop>
+  <tabstop>combineSimulationsButton</tabstop>
   <tabstop>loadDeckConfigurationsButton</tabstop>
   <tabstop>clearLastSimulationButton</tabstop>
   <tabstop>aboutButton</tabstop>
